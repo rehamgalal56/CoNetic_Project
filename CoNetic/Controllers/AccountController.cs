@@ -148,19 +148,7 @@ namespace CoNetic.Controllers
                 return null;
             }
         }
-        [HttpPost("UpdatePassword")]
-        public async Task<IActionResult> updatePassword(UpdatePasswordDTO updatePassword)
-        {
-            var user = await _userManager.FindByEmailAsync(updatePassword.Email);
-
-            if (user == null) return BadRequest("Not Found Email");
-            var resetResult = await _userManager.RemovePasswordAsync(user);
-            var changePasswordResult = await _userManager.AddPasswordAsync(user, updatePassword.NewPassword);
-
-
-            return Ok("Password reset successfully.");
-
-        }
+       
         [HttpPost("ForgetPassword")]
         public async Task<IActionResult> resetPassword(ForgetPasswordDTO resetPassword)
         {
@@ -195,6 +183,19 @@ namespace CoNetic.Controllers
             if (user is null) return BadRequest("Not Found Email");
             if (user.VerificationCode == verifyCode.Code) return Ok("Email verified successfully.");
             return BadRequest("Code is not correct. ");
+        }
+        [HttpPost("UpdatePassword")]
+        public async Task<IActionResult> updatePassword(UpdatePasswordDTO updatePassword)
+        {
+            var user = await _userManager.FindByEmailAsync(updatePassword.Email);
+
+            if (user == null) return BadRequest("Not Found Email");
+            var resetResult = await _userManager.RemovePasswordAsync(user);
+            var changePasswordResult = await _userManager.AddPasswordAsync(user, updatePassword.NewPassword);
+
+
+            return Ok("Password reset successfully.");
+
         }
     }
 
