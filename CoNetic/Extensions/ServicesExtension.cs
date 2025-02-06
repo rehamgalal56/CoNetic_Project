@@ -3,6 +3,7 @@ using CoNetic.Core.ReposInterfaces;
 using CoNetic.Core.ServicesInterfaces;
 using CoNetic.Mapping;
 using CoNetic.Repository.Repos;
+using CoNetic.Services.Helper;
 using CoNetic.Services.Services;
 using Mapster;
 using MapsterMapper;
@@ -12,7 +13,7 @@ namespace CoNetic.Extensions
 {
     public static class ServicesExtension
     {
-        public static IServiceCollection AddServicesExtension(this IServiceCollection services)
+        public static IServiceCollection AddServicesExtension(this IServiceCollection services, IConfiguration Configuration)
         {
             //Mapping
             var mappingconfig = TypeAdapterConfig.GlobalSettings;
@@ -21,6 +22,8 @@ namespace CoNetic.Extensions
             MapingConfigrations.RegisterMappings();
 
             services.AddScoped<IGenericRepo<User>, ProfileRepo>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.Configure<SMTP>(Configuration.GetSection("EmailSettings"));
             services.AddScoped<IFileService, FileService>();
 
 

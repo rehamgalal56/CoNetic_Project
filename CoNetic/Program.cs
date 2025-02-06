@@ -34,7 +34,7 @@ namespace CoNetic
                 options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection"));
             });
             builder.Services.AddIdentityServices(builder.Configuration);
-            builder.Services.AddServicesExtension();
+            builder.Services.AddServicesExtension(builder.Configuration);
             var app = builder.Build();
             #region Migrate Database
             using var Scope = app.Services.CreateScope();
