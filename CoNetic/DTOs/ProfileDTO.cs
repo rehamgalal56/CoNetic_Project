@@ -11,8 +11,8 @@ namespace CoNetic.DTOs
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
-
-       
+        [Required]
+        public string Email { get; set; }
         public string JobRole { get; set; }
 
         [Required(ErrorMessage = "The Gender field is required.")]
